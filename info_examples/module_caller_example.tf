@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 module "bastion-guac" {
-  source = "git::https://cimpress.githost.io/ips/terraform_modules/bastion-guac.git"
+  source = "git::https://github.com/Cimpress-MCP/IPS_Bastion_Guacamole.git"
   name = "${var.name}"
   region = "${var.region}"
   vpc_id = "${data.aws_vpc.vpc_id.id}" #We find the VPC ID with the data filter below, but can be passed as a normal string.
