@@ -1,0 +1,41 @@
+{
+  "min_packer_version": "0.12.0",
+  "variables"         : {
+    "aws_profile"          : "{{env `AWS_PROFILE`}}"
+  },
+  "builders": [
+    {
+    "profile"          : "{{user `aws_profile`}}",
+    "ami_name"         : "guacamole-ubuntu-{{isotime | clean_ami_name}}",
+    "name"             : "guacamole",
+    "ami_description"  : "An Ubuntu AMI with Guacamole",
+    "instance_type"    : "t2.micro",
+    "type"             : "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type"    : "hvm",
+        "name"                   : "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type"       : "ebs"
+      },
+      "owners"     : ["099720109477"],
+      "most_recent": true
+    },
+    "encrypt_boot" : true,
+    "ssh_username": "ubuntu"
+  }
+],
+  "provisioners": [
+    {
+      "type"       : "file",
+      "source"     : "./files/guacamole_0.9.14_fresh_install_ubuntu.sh",
+      "destination": "/tmp/guacamole_0.9.14_fresh_install_ubuntu.sh"
+    },
+    {
+      "type"    : "shell",
+      "inline"  : [
+        "sudo bash /tmp/guacamole_0.9.14_fresh_install_ubuntu.sh",
+        "sudo rm -rf /tmp/guacamole_0.9.14_fresh_install_ubuntu.sh"
+      ]
+    }
+  ]
+}
