@@ -34,7 +34,7 @@ module "s3_repl" {
   source                  = "git::https://github.com/Cimpress-MCP/terraform.git//s3_replication"
   main_bucket_name        = "${var.name}-confs"
   replication_bucket_name = "${var.name}-confs-repl"
-  replica_region          = "us-west-1"
+  replica_region          = "${var.replica_region}"
   access_roles_name       = ["${aws_iam_role.s3_role.name}"]
 }
 

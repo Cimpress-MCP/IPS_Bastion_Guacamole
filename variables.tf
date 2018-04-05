@@ -106,6 +106,9 @@ variable "subnet_priv_ids" {
   description = "Private Subnets IDs, a string with IDs divided by comma"
 }
 
+variable "replica_region" {
+  description = "Region where to replicate buckets"
+}
 
 variable "ami_instance_type" {
   description = "bastion_guacamole instance type"
