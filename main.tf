@@ -35,9 +35,6 @@ module "s3_repl" {
   main_bucket_name        = "${var.name}-confs"
   replication_bucket_name = "${var.name}-confs-repl"
   replica_region          = "us-west-1"
-  tag_name                = "${var.name}-confs"
-  tag_project             = "${var.project}"
-  tag_squad               = "${var.squad}"
   access_roles_name       = ["${aws_iam_role.s3_role.name}"]
 }
 
@@ -46,15 +43,11 @@ module "s3_repl" {
 module "s3_alb_web" {
   source      = "git::https://github.com/Cimpress-MCP/terraform.git//s3_elb_access_logs"
   bucket_name = "${var.name}-alb-https-logs"
-  project     = "${var.project}"
-  squad       = "${var.squad}"
 }
 
 module "s3_elb_ssh" {
   source      = "git::https://github.com/Cimpress-MCP/terraform.git//s3_elb_access_logs"
   bucket_name = "${var.name}-elb-ssh-logs"
-  project     = "${var.project}"
-  squad       = "${var.squad}"
 }
 
 # WAF_Setup Module
