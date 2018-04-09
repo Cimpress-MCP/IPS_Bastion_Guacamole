@@ -29,7 +29,7 @@ output "7_AutoScaling_Group" {
 }
 
 output "8_Instance_Security_Group" {
-  value = ["${aws_security_group.bastion_guac_instance_sg.id}","${aws_security_group.bastion_guac_instance_sg.ingress}","${aws_security_group.bastion_guac_instance_sg.egress}"]
+  value = "${aws_security_group.bastion_guac_instance_sg.id}"
 }
 
 output "9_RDS" {
