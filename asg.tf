@@ -57,7 +57,6 @@ resource "aws_launch_configuration" "bastion_guac_asg_lc" {
 
 resource "aws_autoscaling_group" "bastion_guac_asg" {
   depends_on                = ["module.rds"]
-  availability_zones        = ["${data.aws_availability_zones.available.names}"]
   name                      = "${var.name}"
   max_size = "${var.asg_number_of_instances}"
   min_size = "${var.asg_minimum_number_of_instances}"
@@ -73,7 +72,7 @@ resource "aws_autoscaling_group" "bastion_guac_asg" {
     create_before_destroy = true
   }
 
-vpc_zone_identifier = ["${split(",", var.subnet_priv_ids)}"]
+  vpc_zone_identifier = ["${split(",", var.subnet_priv_ids)}"]
 
 
   tag {
