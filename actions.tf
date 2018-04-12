@@ -4,7 +4,7 @@ it is true then it will render the full file, otherwise the no_duo.tpl one */
 
 resource "null_resource" "generate_guac_prop" {
     triggers = {
-        trigger_object = "${data.template_file.guac_prop.rendered}"
+        trigger_object = "${module.rds.rds_endpoint}"
     }
 
   provisioner "local-exec" {
@@ -12,3 +12,12 @@ resource "null_resource" "generate_guac_prop" {
   }
 }
 
+
+resource "null_resource" "delete_guac_prop" {
+  depends_on = ["aws_s3_bucket_object.bastion_guac_properties"]
+
+  provisioner "local-exec" {
+    command = "echo > ${data.template_file.guac_prop_file.rendered}"
+  }
+  
+}
