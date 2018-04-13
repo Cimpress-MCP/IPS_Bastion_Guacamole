@@ -17,7 +17,7 @@ resource "null_resource" "delete_guac_prop" {
   depends_on = ["aws_s3_bucket_object.bastion_guac_properties"]
 
   provisioner "local-exec" {
-    command = "echo > ${data.template_file.guac_prop_file.rendered}"
+    command = "echo -n > ${data.template_file.guac_prop_file.rendered}"
   }
   
 }
