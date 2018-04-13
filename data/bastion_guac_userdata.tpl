@@ -51,7 +51,26 @@ FROM (
     UNION SELECT '${admin_username}' AS username, '${admin_username}' AS affected_username, 'ADMINISTER' AS permission
 ) permissions
 JOIN guacamole_user          ON permissions.username = guacamole_user.username
-JOIN guacamole_user affected ON permissions.affected_username = affected.username;"
+JOIN guacamole_user affected ON permissions.affected_username = affected.username;
+
+-- Create connection to localhost
+INSERT INTO guacamole_connection (connection_name, protocol) VALUES ('localhost', 'ssh');
+SET @id = LAST_INSERT_ID();
+
+-- Add parameters
+INSERT INTO guacamole_connection_parameter VALUES (@id, 'hostname', 'localhost');
+INSERT INTO guacamole_connection_parameter VALUES (@id, 'username', 'ubuntu');
+INSERT INTO guacamole_connection_parameter VALUES (@id, 'port', '22');
+
+-- Create dummy connection
+INSERT INTO guacamole_connection (connection_name, protocol) VALUES ('dummy', 'ssh');
+SET @id = LAST_INSERT_ID();
+
+-- Add parameters
+INSERT INTO guacamole_connection_parameter VALUES (@id, 'hostname', 'dummy');
+INSERT INTO guacamole_connection_parameter VALUES (@id, 'username', 'ubuntu');
+INSERT INTO guacamole_connection_parameter VALUES (@id, 'port', '22');
+"
 
 
 # Restarting tomcat due to changes to the guacamole.properties.
