@@ -8,31 +8,27 @@ resource "aws_security_group" "bastion_guac_instance_sg" {
 
 
   ingress {
-  from_port = 8080
-  to_port = 8080
-  protocol = "tcp"
-  security_groups = ["${aws_security_group.bastion_guac_alb_sg.id}"]
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_groups = ["${aws_security_group.bastion_guac_alb_sg.id}"]
   }
 
   ingress {
-  from_port = 22
-  to_port = 22
-  protocol = "tcp"
-  security_groups = ["${aws_security_group.bastion_guac_elb_ssh_sg.id}"]
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    security_groups = ["${aws_security_group.bastion_guac_elb_ssh_sg.id}"]
   }
 
   egress {
-  from_port = 0
-  to_port = 0
-  protocol = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-  tags {
-  Name = "${var.name}-instance-sg"
-  Squad = "${var.squad}"
-  Project = "${var.project}"
-  Environment = "private"
-  }
+
+  tags = "${merge(map("Name", "${var.name}-instance-sg"), var.extra_tags)}"
 }
 
 

@@ -18,12 +18,8 @@ resource "aws_security_group" "bastion_guac_elb_ssh_sg" {
     protocol        = "-1"
     cidr_blocks     = ["0.0.0.0/0"]
   }
-    tags {
-    Name = "${var.name}-elb-ssh-sg"
-    Squad = "${var.squad}"
-    Project = "${var.project}"
-    Environment = "public"
-  }
+
+  tags = "${merge(map("Name", "${var.name}-elb-ssh-sg"), var.extra_tags)}"
 }
 
 
@@ -60,11 +56,6 @@ resource "aws_elb" "bastion_guac_elb_ssh" {
   connection_draining_timeout = 400
   security_groups = ["${aws_security_group.bastion_guac_elb_ssh_sg.id}"]
 
-  tags {
-    Name = "${var.name}-elb-ssh"
-    Squad = "${var.squad}"
-    Project = "${var.project}"
-    Environment = "public"
-  }
+  tags = "${merge(map("Name", "${var.name}-elb-ssh"), var.extra_tags)}"
 }
 

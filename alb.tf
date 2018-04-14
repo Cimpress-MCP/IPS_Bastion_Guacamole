@@ -5,7 +5,6 @@ resource "aws_security_group" "bastion_guac_alb_sg" {
   description = "bastion_guacamole ALB Security Group"
   vpc_id      = "${var.vpc_id}"
 
-
   ingress {
     from_port   = 443
     to_port     = 443
@@ -19,12 +18,8 @@ resource "aws_security_group" "bastion_guac_alb_sg" {
     protocol        = "-1"
     cidr_blocks     = ["0.0.0.0/0"]
   }
-    tags {
-    Name = "${var.name}-alb-sg"
-    Squad = "${var.squad}"
-    Project = "${var.project}"
-    Environment = "public"
-  }
+
+  tags = "${merge(map("Name", "${var.name}-alb-sg"), var.extra_tags)}"
 }
 
 
@@ -43,12 +38,7 @@ resource "aws_lb" "bastion_guac_alb" {
     enabled = true
   }
 
-  tags {
-    Name = "${var.name}-alb"
-    Squad = "${var.squad}"
-    Project = "${var.project}"
-    Environment = "public"
-  }
+  tags = "${merge(map("Name", "${var.name}-alb"), var.extra_tags)}"  
 }
 
 # Create the target group for the ALB

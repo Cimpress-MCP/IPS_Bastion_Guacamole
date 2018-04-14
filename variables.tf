@@ -20,6 +20,21 @@ variable "project" {
   description = "Project Name"
 }
 
+
+variable "extra_tags" {
+  type = "map"
+  description = "A map of additional tags to add to ELBs and SGs. Each element in the map must have the key = value format"
+
+  # example:
+  # extra_tags = {
+  #   "Environment" = "Dev",
+  #   "Squad" = "Ops"
+  # }
+
+  default = {}
+}
+
+
 variable "route53_hostedzone" {
   type = "string"
   description = "The name of your Route53 Hosted Zone. Do NOT end it with . "
