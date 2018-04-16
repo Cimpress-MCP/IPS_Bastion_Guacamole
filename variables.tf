@@ -34,12 +34,6 @@ variable "extra_tags" {
   default = {}
 }
 
-
-variable "route53_hostedzone" {
-  type = "string"
-  description = "The name of your Route53 Hosted Zone. Do NOT end it with . "
-}
-
 variable "bastion_guac_ami" {
   type = "string"
   description = "AMI ID of the Bastion Guacamole instance"

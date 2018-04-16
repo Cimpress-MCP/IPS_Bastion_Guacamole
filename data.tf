@@ -1,8 +1,3 @@
-data "aws_route53_zone" "hosted_zone" {
-  name         = "${var.route53_hostedzone}."
-  private_zone = false
-}
-
 /* This template files point to the default guacamole.properties template
 with the duo settings; the one below is without */
 
