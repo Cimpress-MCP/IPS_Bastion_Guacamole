@@ -1,13 +1,3 @@
-# Inspector Module, assuring that the infrastructure is controlled by AWS Inspector
-
-module "inspector" {
-  source                = "git::https://github.com/Cimpress-MCP/terraform.git//inspector_automation"
-  name                  = "${var.name}"
-  inspector_tag         = "${var.name}"
-  template_duration     = 3600
-  cloudwatch_sched_rule = "rate(15 days)"
-}
-
 # RDS module for the backend MySQL db.
 module "rds" {
   source              = "git::https://github.com/Cimpress-MCP/terraform.git//rds"
