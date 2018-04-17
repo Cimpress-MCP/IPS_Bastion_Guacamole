@@ -44,8 +44,6 @@ module "s3_elb_ssh" {
 module "waf_setup" {
   source                    = "git::https://github.com/Cimpress-MCP/terraform.git//waf_setup"
   name                      = "${var.name}-WAF"
-  squad                     = "${var.squad}"
-  project                   = "${var.project}"
   accesslogbucket           = "${module.s3_alb_web.bucket_name}"
   sqlinjection              = "${var.sqlinjection}"
   xss                       = "${var.xss}"

@@ -70,34 +70,10 @@ resource "aws_autoscaling_group" "bastion_guac_asg" {
 
   vpc_zone_identifier = ["${split(",", var.subnet_priv_ids)}"]
 
-
-  tag {
-    key   = "Name",
-    value = "${var.name}",
-    propagate_at_launch = true
-  }
-
-  tag {
-    key   = "Project",
-    value = "${var.project}",
-    propagate_at_launch = true
-  }
-
-  tag {
-    key   = "Squad",
-    value = "${var.squad}",
-    propagate_at_launch = true
-  }
-
-  tag {
-    key   = "Environment",
-    value = "private",
-    propagate_at_launch = true
-  }
-
-  tag {
-    key   = "Inspector",
-    value = "${var.name}",
-    propagate_at_launch = true
-  }
+  tags = ["${concat(
+    list(
+      map("key", "Name", "value", "${var.name}", "propagate_at_launch", true)
+    ),
+    var.cluster_extra_tags)
+  }"]
 }

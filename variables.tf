@@ -10,17 +10,6 @@ variable "vpc_id" {
   description = "VPC ID where to deploy the bastion host"
 }
 
-variable "squad" {
-  type = "string"
-  description = "Owner Squad"
-}
-
-variable "project" {
-  type = "string"
-  description = "Project Name"
-}
-
-
 variable "extra_tags" {
   type = "map"
   description = "A map of additional tags to add to ELBs and SGs. Each element in the map must have the key = value format"
@@ -32,6 +21,21 @@ variable "extra_tags" {
   # }
 
   default = {}
+}
+
+variable "cluster_extra_tags" {
+  description = "A list of additional tags to add to each Instance in the ASG. Each element in the list must be a map with the keys key, value, and propagate_at_launch"
+  type        = "list"
+
+  #example:
+  # default = [
+  #   {
+  #     key = "Environment"
+  #     value = "Dev"
+  #     propagate_at_launch = true
+  #   }
+  # ]
+  default = []
 }
 
 variable "bastion_guac_ami" {
