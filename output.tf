@@ -30,3 +30,7 @@ output "7_Instance_Security_Group" {
 output "8_RDS" {
   value = ["${module.rds.rds_endpoint}"]
 }
+
+output "alb_zone_id" {
+  value = "${aws_lb.bastion_guac_alb.zone_id}"
+}
