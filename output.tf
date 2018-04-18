@@ -4,7 +4,7 @@ output "1_Elastic_Load_Balancer_SSH" {
 }
 
 output "2_Application_Load_Balancer_Web" {
-  value = ["${aws_lb.bastion_guac_alb.dns_name}"]
+  value = "${aws_lb.bastion_guac_alb.dns_name}"
 }
 
 output "3_ELB_SSH_Security_Group" {
