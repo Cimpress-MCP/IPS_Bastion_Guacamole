@@ -21,6 +21,6 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "bastion_guac_profile" {
-  name  = "bastion_guac"
+  name_prefix  = "bastion_guac"
   role = "${aws_iam_role.s3_role.name}"
 }
